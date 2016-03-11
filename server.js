@@ -2,11 +2,13 @@ var express = require('express'),
     logger  = require('morgan')('dev'),
     path    = require('path'),
     mongoose = require('mongoose'),
+
     Schema = mongoose.Schema,
     bodyParser = require('body-parser'),
     server  = express();
 
-// Todo Model
+//Todo Model
+
 var todoSchema = new Schema({
   desc: {
     type: String,
@@ -20,9 +22,9 @@ var todoSchema = new Schema({
 
 var Todo = mongoose.model('Todo', todoSchema);
 
+//create a connection to our db
+mongoose.connect('mongodb://localhost/todoApp');
 
-// create a connection to our db
-mongoose.connect('mongodb://localhost/todoApp')
 var port = process.env.PORT || 9000;
 
 server.use(express.static(path.join(__dirname,'public')));
@@ -42,7 +44,8 @@ server.get('/api/todos', function(req, res){
   });
 });
 
-server.post('/api/todos', function(req, res){
+server.post('/api/todos', function(req,res){
+
   var desc = req.body.desc;
   var todoObj = {
     desc: desc,
@@ -63,6 +66,7 @@ server.put('/api/todos/:id', function(req, res){
     desc: desc,
     completed: completed
   };
+
   Todo.findOneAndUpdate({_id: id}, update, {new: true}, function(err, todo){
     if(err) throw err;
 
