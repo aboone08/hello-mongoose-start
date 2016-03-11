@@ -8,7 +8,6 @@ var express = require('express'),
     server  = express();
 
 //Todo Model
-
 var todoSchema = new Schema({
   desc: {
     type: String,
@@ -33,7 +32,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
 server.get('/', function(req, res){
-  res.send('this is a starter application, welcome!');
+  res.sendFile('public/html/index.html', {root: __dirname});
 });
 
 server.get('/api/todos', function(req, res){
