@@ -12,9 +12,16 @@
         <button type="submit">Save Todo</button>
       </form>
       <hr>
+      <div ng-if='isEditing'>
+        <input type="text" ng-model="editingTodo.desc">
+        <button type='button' ng-click="updateTodo(editingTodo)">Save</button>
+      </div>
         <ul>
-          <li ng-repeat="todo in todos">
+          <li class="well" ng-repeat="todo in todos">
             {{todo.desc}}
+            <button type="button" class="btn btn-sm btn-danger" ng-click="deleteTodo(todo)">
+              <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span></button></span>
+              <button type="button" ng-click="editTodo(todo)">Edit</button>
           </li>
         </ul>
     </div>
