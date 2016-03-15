@@ -5,21 +5,8 @@ var express = require('express'),
 
     Schema = mongoose.Schema,
     bodyParser = require('body-parser'),
-    server  = express();
-
-//Todo Model
-var todoSchema = new Schema({
-  desc: {
-    type: String,
-    required: true
-  },
-  completed: {
-    type: Boolean,
-    required: true
-  }
-});
-
-var Todo = mongoose.model('Todo', todoSchema);
+    server  = express(),
+    Todo = require('./models/todo.model.js');
 
 //create a connection to our db
 mongoose.connect('mongodb://localhost/todoApp');

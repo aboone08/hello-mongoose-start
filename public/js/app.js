@@ -45,14 +45,14 @@ $scope.editTodo = function(todo){
 }
 
 $scope.updateTodo = function(todo){
-  $http.put('/api/todos'+todo._id, todo)
+  $http.put('/api/todos/'+todo._id, todo)
   .then(function(response){
     initTodos();
     $scope.editingTodo = false;
   })
-  .catch(function)(err){
+  .catch(function(err){
     console.log(err);
-  }
+  });
 }
   function initTodos(){
     $http.get('/api/todos')
