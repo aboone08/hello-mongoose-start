@@ -13,23 +13,19 @@ function TodoController($scope, $http, TodoService){
 
 
   //Create a new todo
-  $scope.saveTodo = function(){
-    $http.post('/api/todos', $scope.newTodo)
-        .then(function(response){
-          $scope.newTodo = {};
-        })
-        .catch(function(err){
-          console.err(err);
-        });
-      }
-        $scope.deleteTodo = function(todo){
-          var id = todo._id;
-          $http.delete('/api/todos/'+id)
-            .then(function(response){
-          })
-          .catch(function(err){
-          console.err(err);
-        });
+  $scope.saveTodo = function(todo){
+      TodoService.create(todo)
+                .then(function(){
+                  $scope.newTodo = {};
+                  getTodos();
+                });
+  }
+
+  $scope.deleteTodo = function(todo){
+    TodoService.delete(todo._id)
+              .then(function(){
+                getTodos();
+              });
   }
 
 $scope.editTodo = function(todo){
@@ -38,13 +34,11 @@ $scope.editTodo = function(todo){
 }
 
 $scope.updateTodo = function(todo){
-  $http.put('/api/todos/'+todo._id, todo)
-  .then(function(response){
-    $scope.editingTodo = false;
-  })
-  .catch(function(err){
-    console.log(err);
-  });
+  TodoService.update(todo._id, todo)
+            .then(function(){
+              getTodos();
+              $scope.isEditing = false
+            });
 }
 function getTodos(){
   TodoService.read()

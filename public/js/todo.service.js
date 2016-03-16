@@ -17,8 +17,15 @@ function TodoService($http){
           return response.data;
         });
   }
-  function createTodo(todoObj){}
-  function updateTodo(id, todoObj){}
-  function deleteTodo(id){}
+  function createTodo(todoObj){
+    return $http.post('/api/todos', todoObj);
+
+  }
+  function updateTodo(id, todoObj){
+  return $http.put('/api/todos/'+id, todoObj);
+  }
+  function deleteTodo(id){
+    return $http.delete('/api/todos/'+id);
+  }
 
 }
